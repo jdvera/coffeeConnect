@@ -41,7 +41,6 @@ if (process.env.NODE_ENV === "production") {
 require("./routes/user-routes.js")(app, passport);
 require("./routes/shoesRoutes.js")(app);
 require("./routes/dressesRoutes.js")(app);
-// load passport strategies
 require('./config/passport.js')(passport);
 
 // Send every request to the React app

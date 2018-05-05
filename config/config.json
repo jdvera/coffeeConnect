@@ -2,8 +2,8 @@
   "development": {
     "username": "root",
     "password": "root",
+    "database": "coffee_db",
     "port": 8889,
-    "database": "users_db",
     "host": "localhost",
     "dialect": "mysql"
   },
