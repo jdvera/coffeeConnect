@@ -9,15 +9,15 @@ const app = express();
 
 // **Uncomment once we begin passport work**
 // Sets up Passport =====================================
-var passport   = require('passport');
-var session    = require('express-session');
-var flash = require('connect-flash');
+// const passport = require('passport');
+// const session = require('express-session');
+// const flash = require('connect-flash');
 
 // Requiring our models for syncing
-var db = require("./models");
+const db = require("./models");
 
 
-// Sets up the Express app to han le data parsing -------/
+// Sets up the Express app to handle data parsing -------/
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.text());
@@ -25,10 +25,10 @@ app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 
 // **Uncomment once we begin passport work**
 // For Passport -----------------------------------------/
-app.use(flash());
-app.use(session({ secret: 'keyboard cat',resave: true, saveUninitialized:true})); // session secret
-app.use(passport.initialize());
-app.use(passport.session()); // persistent login sessions
+// app.use(flash());
+// app.use(session({ secret: 'keyboard cat',resave: true, saveUninitialized:true})); // session secret
+// app.use(passport.initialize());
+// app.use(passport.session()); // persistent login sessions
 
 
 // Serve up static assets (usually on heroku)
@@ -38,10 +38,10 @@ if (process.env.NODE_ENV === "production") {
 
 // Server Routes
 // =============================================================
-require("./routes/user-routes.js")(app, passport);
-require("./routes/shoesRoutes.js")(app);
-require("./routes/dressesRoutes.js")(app);
-require('./config/passport.js')(passport);
+// require("./routes/user-routes.js")(app, passport);
+// require("./routes/shoesRoutes.js")(app);
+// require("./routes/dressesRoutes.js")(app);
+// require('./config/passport.js')(passport);
 
 // Send every request to the React app
 // Define any API routes before this runs
