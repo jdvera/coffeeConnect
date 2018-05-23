@@ -4,7 +4,7 @@ import "./Home.css";
 class Home extends Component {
     render(){
         return (
-            <div className="page-wrapper">
+            <div className="home-wrapper">
                 Home
             </div>
         );
