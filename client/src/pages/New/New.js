@@ -1,14 +1,14 @@
 import React, { Component} from "react";
-import "./Main.css";
+import "./New.css";
 
-class Main extends Component {
+class New extends Component {
     render(){
         return (
             <div className="main-wrapper">
-                Main
+                New
             </div>
         );
     }
 }
 
-export default Main;
+export default New;

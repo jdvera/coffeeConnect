@@ -57,7 +57,7 @@ db.sequelize.sync().then(function () {
 	app.listen(PORT, function () {
 		console.log(`🌎 ==> Server now on port ${PORT}!`);
 		db.Groups.create({ groupName: "test", password: "test" }).then(function (dbPost) {
-			console.log(dbPost);
+			console.log("added test user to Groups");
 		})
 	});
 });
