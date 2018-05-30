@@ -2,6 +2,20 @@ import React, { Component} from "react";
 import "./Home.css";
 
 class Home extends Component {
+
+
+	state = {
+		create: false,
+		join: false
+    };
+
+
+
+
+
+
+
+
     render(){
         return (
             <div className="container">
@@ -14,7 +28,7 @@ class Home extends Component {
 						<img src="./images/coffeelogoMed.png" alt="logo" id="imgStyle" />
 					</div>
 				</div>
-				
+
 				<div className="row">
 					<div className="" id="fontStyle">coffee</div>
 					<div className="" id="fontStyle2">connection</div>
