@@ -1,25 +1,13 @@
 import React from "react";
-import "./Sizes.css";
+import "./GroupForm.css";
 
-const Sizes = props =>
-	
-	<div className="resultsBody">   
-	    <div className="itemsContainer">
-	    	{props.results.length ? 
-				<div className="jamesDiv">
-					{props.results.map(item =>
-					<div className="singleItem">
-						<img alt="Brand Logo" src={item.Logo.fileLocation} />
-						<p>{item.Logo.brand}</p>
-						<p>{item.size}</p>
-					</div> )}
-				</div>
-			: <div className="singleItem no-results">
-				<img alt="Brand Logo" src="logos/cry.png" />
-				<p>No Results</p>
-				<p></p>
-			  </div>}
-		</div>
-	</div>
-	
-export default Sizes;
+const GroupForm = props =>
+
+	<form>
+		<input placeholder="Group Name" autoFocus="yes" name="groupName" value={props.state.type === "" ? "" : props.state.groupName} onChange={props.handleInputChange} /><br/>
+		<input placeholder="Password" name="password" value={props.state.type === "" ? "" : props.state.password} onChange={props.handleInputChange} /><br/>
+		<input placeholder="Re-Type Password" name="retype" value={props.state.type === "" ? "" : props.state.retype} onChange={props.handleInputChange} style={props.state.type === "new" ? {display: "inline-block"} : {display: "none"}} /><br/>
+		<p id="message" style={props.state.message === "" ? {display: "none"} : {display: "inline-block"}}> {props.state.message} </p>
+	</form>
+
+export default GroupForm;
