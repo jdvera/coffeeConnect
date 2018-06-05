@@ -1,6 +1,26 @@
 var db = require("../models");
 
 module.exports = function(app) {
+	app.get("/api/groups", function(req, res) {
+		db.Groups.findAll().then(function(dbResponse) {
+			res.json(dbResponse);
+		}).catch(function(err) {
+			console.log(err);
+			res.json(err);
+		});
+	});
+
+	app.post("/api/createGroup", function(req, res) {
+		db.Groups.create(req.body).then(function(dbResponse) {
+			res.json(dbResponse);
+		}).catch(function(err) {
+			console.log(err);
+			res.json(err);
+		});
+	});
+
+
+/*
 	// -- POST resquest in register.js to add new users
 	app.post("/api/users", function(req, res) {
 		db.Users.findOne({ where: { username: req.body.username } }).then(function(user) {
@@ -80,4 +100,5 @@ module.exports = function(app) {
 			res.json(dbPost);
 		});
 	});
+*/
 };

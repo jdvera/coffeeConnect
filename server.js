@@ -53,7 +53,7 @@ app.get("*", function (req, res) {
 // Syncing our sequelize models and then starting our Express app
 // =============================================================
 // add { force: true } in ".sync()" function if writing db schema for first time.
-db.sequelize.sync().then(function () {
+db.sequelize.sync({ force: true }).then(function () {
 	app.listen(PORT, function () {
 		console.log(`🌎 ==> Server now on port ${PORT}!`);
 		db.Groups.create({ groupName: "test", password: "test" }).then(function (dbPost) {

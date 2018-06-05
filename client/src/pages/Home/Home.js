@@ -1,5 +1,6 @@
-import React, { Component} from "react";
+import React, { Component } from "react";
 import "./Home.css";
+import API from "../../utils/API";
 import GroupForm from "../../components/GroupForm";
 
 class Home extends Component {
@@ -44,19 +45,35 @@ class Home extends Component {
 	 }
 
 	handleGroupSubmit = event => {
-		if(this.state.type === "new" && this.state.password !== this.state.retype) {
-			this.setState({
-				message: "Passwords do not match",
-				password: "",
-				retype: ""
-			}, console.log("RIP"));
+		event.preventDefault();
+		if(this.state.type === "new") {
+			if (this.state.password === this.state.retype) {
+				this.setState({
+					message: ""
+				}, console.log("we guccii"));
+				this.handleOverlay();
+				API.createGroup({
+					groupName: this.state.groupName,
+					password: this.state.password
+				}).then(res => {
+					console.log(res);
+				}).catch(err => console.log(err));
+			}
+			else {
+				this.setState({
+					message: "Passwords do not match",
+					password: "",
+					retype: ""
+				}, console.log("RIP"));
+			}
 		}
-		else {
-			this.setState({
-				message: ""
-			}, console.log("we guccii"));
-			this.handleOverlay();
+		else if (this.state.type === "join") {
 		}
+	}
+
+	handleTest = event => {
+		event.preventDefault();
+		API.getGroups().then(res => console.log(res)).catch(err => console.log(err));
 	}
 
 
@@ -83,7 +100,7 @@ class Home extends Component {
 				<div className="row">
 					<div className="">
 						<div className="row">
-							<button name="new" other="join" onClick={this.handleGroup}>create new group</button>
+							<button name="new" onClick={this.handleGroup}>create new group</button>
 						</div>
 					</div>
 				</div>
@@ -91,7 +108,15 @@ class Home extends Component {
 				<div className="row">
 					<div className="">
 						<div className="row">
-							<button name="join" other="new" onClick={this.handleGroup}>join group</button>
+							<button name="join" onClick={this.handleGroup}>join group</button>
+						</div>
+					</div>
+				</div>
+
+				<div className="row">
+					<div className="">
+						<div className="row">
+							<button name="get" onClick={this.handleTest}>test GET</button>
 						</div>
 					</div>
 				</div>
