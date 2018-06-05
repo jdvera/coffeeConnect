@@ -42,6 +42,7 @@ if (process.env.NODE_ENV === "production") {
 // require("./routes/shoesRoutes.js")(app);
 // require("./routes/dressesRoutes.js")(app);
 // require('./config/passport.js')(passport);
+require("./routes/groupRoutes.js")(app);
 
 // Send every request to the React app
 // Define any API routes before this runs
