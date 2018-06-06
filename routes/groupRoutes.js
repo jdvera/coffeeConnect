@@ -2,7 +2,7 @@ var db = require("../models");
 
 module.exports = function(app) {
 	app.get("/api/groups", function(req, res) {
-		db.Groups.findAll().then(function(dbResponse) {
+		db.Groups.findAll({}).then(function(dbResponse) {
 			res.json(dbResponse);
 		}).catch(function(err) {
 			console.log(err);

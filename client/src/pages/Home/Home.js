@@ -73,7 +73,7 @@ class Home extends Component {
 
 	handleTest = event => {
 		event.preventDefault();
-		API.getGroups().then(res => console.log(res)).catch(err => console.log(err));
+		API.getGroups().then(res => console.log(res.data)).catch(err => console.log(err));
 	}
 
 
@@ -84,7 +84,6 @@ class Home extends Component {
             <div className="container">
 				<div className="row">
 				</div>
-				
 
 				<div className="row">
 					<div>
@@ -130,7 +129,6 @@ class Home extends Component {
 
 				<div id="overlay-background" onClick={this.handleOverlay}>
 				</div>
-
 			</div>
         );
     }
