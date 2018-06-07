@@ -2,39 +2,33 @@
 const express = require("express");
 const bodyParser = require('body-parser');
 const path = require("path");
+// Sets up Passport =====================================
+const passport = require('passport');
+const session = require('express-session');
+// const flash = require('connect-flash');
+
 
 // Sets up the Express App  =============================
 const PORT = process.env.PORT || 3010;
-const app = express();
-
-// **Uncomment once we begin passport work**
-// Sets up Passport =====================================
-// const passport = require('passport');
-// const session = require('express-session');
-// const flash = require('connect-flash');
-
-// Requiring our models for syncing
 const db = require("./models");
 
 
 // Sets up the Express app to handle data parsing -------/
+const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.text());
-app.use(bodyParser.json({ type: "application/vnd.api+json" }));
-
-// **Uncomment once we begin passport work**
-// For Passport -----------------------------------------/
-// app.use(flash());
-// app.use(session({ secret: 'keyboard cat',resave: true, saveUninitialized:true})); // session secret
-// app.use(passport.initialize());
-// app.use(passport.session()); // persistent login sessions
-
-
 // Serve up static assets (usually on heroku)
 if (process.env.NODE_ENV === "production") {
 	app.use(express.static("client/build"));
 }
+// For Passport -----------------------------------------/
+app.use(session({ secret: 'keyboard cat',resave: true, saveUninitialized:true}));
+app.use(passport.initialize());
+app.use(passport.session());
+// app.use(flash());
+
+
 
 // Server Routes
 // =============================================================
@@ -43,6 +37,7 @@ if (process.env.NODE_ENV === "production") {
 // require("./routes/dressesRoutes.js")(app);
 // require('./config/passport.js')(passport);
 require("./routes/groupRoutes.js")(app);
+require("./routes/passportRoutes.js")(app);
 
 // Send every request to the React app
 // Define any API routes before this runs

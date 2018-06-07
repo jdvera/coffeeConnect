@@ -5,7 +5,7 @@ class New extends Component {
     render(){
         return (
             <div className="main-wrapper">
-                New
+                IT WORKED
             </div>
         );
     }

@@ -4,20 +4,20 @@ import "./FourOhFour.css";
 class FourOhFour extends Component {
     render(){
         return (
-            <div class="container">
-                <div class="row">
+            <div className="container">
+                <div className="row">
                     <img src="./images/coffeebrokenNEW.png" alt="404" id="imgStyle" />
                 </div>	
                 
-                <div class="row" id="fontStyle">
+                <div className="row" id="fontStyle">
                     oops!
                 </div>
                 
-                <div class="row" id="fontStyle3">
+                <div className="row" id="fontStyle3">
                     <h2>you broke the internet!</h2>
                 </div>
                     
-                <div class="row">
+                <div className="row">
                     <a href="/"><button>home</button></a>
                 </div>
             </div>

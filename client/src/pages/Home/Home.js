@@ -9,11 +9,12 @@ class Home extends Component {
 	state = {
 		type: "",
 		groupName: "",
+		passCheck: false,
 		password: "",
 		retype: "",
 		message: ""
 	};
-	
+
 	handleGroup = event => {
 		event.preventDefault();
 		this.handleOverlay();
@@ -22,15 +23,20 @@ class Home extends Component {
 			type: event.target.name
 		}, console.log(this.state));
 	};
-    
-    handleInputChange = event => {
-        const { name, value } = event.target;
-        this.setState({
-            [name]: value,
-            hasSearched: false,
-            dataOnFile: false
-        }, console.log(this.state));
-    };
+
+	handleInputChange = event => {
+		if (event.target.name === "passCheck" && this.state.passCheck === "on") {
+			this.setState({
+				passCheck: false
+			}, console.log(this.state));
+		}
+		else {
+			const { name, value } = event.target;
+			this.setState({
+				[name]: value
+			}, console.log(this.state));
+		}
+	};
 
 	handleOverlay = event => {
 		event && event.preventDefault();
@@ -38,26 +44,33 @@ class Home extends Component {
 		overlay.style.display = (overlay.style.display === "inline-block") ? "none" : "inline-block";
 		const overlayBackground = document.getElementById("overlay-background");
 		overlayBackground.style.display = (overlayBackground.style.display === "inline-block") ? "none" : "inline-block";
-		overlayBackground.style.display === "none" && this.setState({type: "",
-																	 groupName: "",
-																	 password: "",
-																	 retype: ""});
-	 }
+		overlayBackground.style.display === "none" && this.setState({
+			type: "",
+			groupName: "",
+			password: "",
+			retype: ""
+		});
+	}
 
 	handleGroupSubmit = event => {
 		event.preventDefault();
-		if(this.state.type === "new") {
+		if (this.state.type === "new") {
 			if (this.state.password === this.state.retype) {
 				this.setState({
 					message: ""
 				}, console.log("we guccii"));
-				this.handleOverlay();
+
 				API.createGroup({
 					groupName: this.state.groupName,
 					password: this.state.password
 				}).then(res => {
 					console.log(res);
-				}).catch(err => console.log(err));
+					this.handleOverlay();
+				}).catch(err => {
+						this.setState({
+							message: err.responseJSON
+						}, console.log("there was an error"));
+					});
 			}
 			else {
 				this.setState({
@@ -68,6 +81,16 @@ class Home extends Component {
 			}
 		}
 		else if (this.state.type === "join") {
+			this.handleOverlay();
+
+			API.loginGroup({
+				groupName: this.state.groupName,
+				password: this.state.password
+			}).then(res => {
+				console.log(res.data);
+				window.location.replace(res.data);
+			})
+				.catch(err => console.log(err));
 		}
 	}
 
@@ -79,9 +102,9 @@ class Home extends Component {
 
 
 
-    render(){
-        return (
-            <div className="container">
+	render() {
+		return (
+			<div className="container">
 				<div className="row">
 				</div>
 
@@ -95,7 +118,7 @@ class Home extends Component {
 					<div className="" id="fontStyle">coffee</div>
 					<div className="" id="fontStyle2">connection</div>
 				</div>
-				
+
 				<div className="row">
 					<div className="">
 						<div className="row">
@@ -122,16 +145,17 @@ class Home extends Component {
 
 				<div id="overlay">
 					<div>
+						<br />
 						<GroupForm state={this.state} handleGroupSubmit={this.handleGroupSubmit} handleInputChange={this.handleInputChange} />
-						<button onClick={this.handleGroupSubmit}> Submit </button>
+						<br />
 					</div>
 				</div>
 
 				<div id="overlay-background" onClick={this.handleOverlay}>
 				</div>
 			</div>
-        );
-    }
+		);
+	}
 }
 
 export default Home;

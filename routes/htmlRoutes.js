@@ -1,4 +1,5 @@
 var path = require("path");
+var isAuthenticated = require("../config/middleware/isAuthenticated");
 
 module.exports = function(passport, app) {
 
@@ -35,22 +36,11 @@ module.exports = function(passport, app) {
   );
 
 
-  app.get("/logout", destroySession);
-
 
   // -- Passport functions
-  function IsAuthenticated(req, res, next){
-    if(req.isAuthenticated()) {
-      next();
-    }
-    else {
-      res.redirect("/error");
-    }
-  }
-
-  function destroySession(req, res, next) {
-    req.logOut();
-    req.session.destroy();
-    res.redirect("/");
-  }
+  // function destroySession(req, res, next) {
+  //   req.logOut();
+  //   req.session.destroy();
+  //   res.redirect("/");
+  // }
 };
