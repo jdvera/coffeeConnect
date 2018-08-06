@@ -1,5 +1,9 @@
-input {
+.form-control {
     margin-top: 8px;
+}
+
+#pass-check {
+    margin: "0px 10px 0px 0px"
 }
 
 #message {

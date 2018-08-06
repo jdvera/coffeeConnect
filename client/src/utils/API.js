@@ -12,19 +12,6 @@ export default {
         }
     },
 
-    loginGroup: (userData) => {
-        if(userData.password) {
-            console.log("Axios loginGroup");
-            return axios.post("/api/login", userData);
-        }
-        else {
-            console.log("Axios loginGroup NoPass");
-            return axios.post("/api/loginNoPass", userData);
-        }
-        
-    },
-
-
     getUser: () => {
         console.log("Axios getting stuff");
         return axios.get("/api/user_data");
