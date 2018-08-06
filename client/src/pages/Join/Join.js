@@ -5,7 +5,7 @@ class Join extends Component {
     render(){
         return (
             <div className="main-wrapper">
-                Join
+                LOGOUT PAGE
             </div>
         );
     }

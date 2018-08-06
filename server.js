@@ -41,9 +41,9 @@ require("./routes/passportRoutes.js")(app);
 
 // Send every request to the React app
 // Define any API routes before this runs
-app.get("*", function (req, res) {
-	res.sendFile(path.join(__dirname, "./client/build/index.html"));
-});
+// app.get("*", function (req, res) {
+// 	res.sendFile(path.join(__dirname, "./client/build/index.html"));
+// });
 
 
 // Syncing our sequelize models and then starting our Express app
@@ -52,8 +52,11 @@ app.get("*", function (req, res) {
 db.sequelize.sync({ force: true }).then(function () {
 	app.listen(PORT, function () {
 		console.log(`🌎 ==> Server now on port ${PORT}!`);
-		db.Groups.create({ groupName: "test", password: "test" }).then(function (dbPost) {
+		db.Groups.create({ groupName: "test", hashId: "1234", password: "test", reqPass: true }).then(function (dbPost) {
 			console.log("added test user to Groups");
-		})
+		});
+		db.Groups.create({ groupName: "test2", hashId: "2345", reqPass: false }).then(function (dbPost) {
+			console.log("added test2 user to Groups");
+		});
 	});
 });

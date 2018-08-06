@@ -20,10 +20,7 @@ module.exports = function (app) {
     app.post("/api/signup", function (req, res) {
         console.log("---------------signup-----------");
         console.log(req.body);
-        db.Groups.create({
-            groupName: req.body.groupName,
-            password: req.body.password
-        }).then(function () {
+        db.Groups.create(req.body).then(function () {
             console.log("---------------signup successful, redirecting-----------");
             res.redirect(307, "/api/login");
         }).catch(function (err) {
@@ -35,23 +32,60 @@ module.exports = function (app) {
     // Route for logging user out
     app.get("/logout", function (req, res) {
         req.logout();
-        res.redirect("/");
+        res.send(true);
     });
 
     // Route for getting some data about our user to be used client side
     app.get("/api/user_data", function (req, res) {
         if (!req.user) {
             // The user is not logged in, send back an empty object
-            res.json({});
+            res.json({
+                message: "Passport -- you are not logged in",
+                loggedIn: false
+            });
         }
         else {
             // Otherwise send back the user's email and id
             // Sending back a password, even a hashed password, isn't a good idea
             res.json({
                 groupName: req.user.groupName,
-                id: req.user.id
+                id: req.user.id,
+                loggedIn: true
             });
         }
     });
 
+
+    // ---------------------------------  No Password Below ---------------------------------
+    
+
+    //Routes if the user doesn't use a password
+    app.post("/api/signupNoPass", function (req, res) {
+        console.log("---------------signup NoPass-----------");
+        db.Groups.create(req.body).then(function () {
+            console.log("---------------NoPass signup successful, redirecting-----------");
+            res.redirect(307, "/api/loginNoPass");
+        }).catch(function (err) {
+            console.log(err);
+            res.status(422).json(err.errors[0].message);
+        });
+    });
+
+    app.post("/api/loginNoPass", function(req, res) {
+        db.Groups.findOne({
+            where: {
+                groupName: req.body.groupName
+            }
+        }).then(function(dbResponse) {
+            if (dbResponse.reqPass) {
+                res.json({ message: "This Group requires a Password" });
+            }
+            else {
+                res.json("/new-group");
+            }
+        }).catch(function(err) {
+            console.log(err);
+            res.json(err);
+        })
+    });
 };
