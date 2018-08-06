@@ -8,7 +8,6 @@ class Home extends Component {
 
 	state = {
 		groupName: "",
-		passCheck: false,
 		password: "",
 		retype: "",
 		message: ""
@@ -16,12 +15,7 @@ class Home extends Component {
 
 	handleInputChange = event => {
 		let { name, value } = event.target;
-
-		//  checkboxes are weird so I need to toggle true/false
-		if (name === "passCheck") {
-			value = !this.state.passCheck;
-		}
-		else event.preventDefault();
+		event.preventDefault();
 
 		this.setState({
 			[name]: value,
@@ -44,21 +38,16 @@ class Home extends Component {
 		let newObj = {};
 		let callback = this.createGroup;
 
-		if (this.state.passCheck) {
-			if (this.state.password === this.state.retype) {
-				newObj = { message: "" };
-			}
-			else {
-				newObj = {
-					message: "Passwords do not match",
-					password: "",
-					retype: ""
-				};
-				callback = () => console.log("Passwords didn't match");
-			}
+		if (this.state.password === this.state.retype) {
+			newObj = { message: "" };
 		}
 		else {
-			newObj = { password: "" };
+			newObj = {
+				message: "Passwords do not match",
+				password: "",
+				retype: ""
+			};
+			callback = () => console.log("Passwords didn't match");
 		}
 
 		this.setState(newObj, callback);
@@ -66,8 +55,7 @@ class Home extends Component {
 
 	createGroup = () => API.createGroup({
 		groupName: this.state.groupName,
-		password: this.state.password,
-		reqPass: this.state.passCheck
+		password: this.state.password
 	}).then(res => {
 		window.location.replace(res.data);
 	}).catch(err => {

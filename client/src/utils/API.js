@@ -2,14 +2,8 @@ import axios from "axios";
 
 export default {
     createGroup: (userData) => {
-        if(userData.reqPass) {
-            console.log("Axios createGroup");
-            return axios.post("/api/signup", userData);
-        }
-        else {
-            console.log("API createGroup NoPass");
-            return axios.post("/api/signupNoPass", userData);
-        }
+        console.log("Axios createGroup");
+        return axios.post("/api/signup", userData);
     },
 
     getUser: () => {

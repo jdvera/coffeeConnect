@@ -19,6 +19,7 @@ module.exports = function (app) {
     // otherwise send back an error
     app.post("/api/signup", function (req, res) {
         console.log("---------------signup-----------");
+        req.body.hashId = (Math.random() + " ").substring(2,10) + (Math.random() + " ").substring(2,10);
         console.log(req.body);
         db.Groups.create(req.body).then(function () {
             console.log("---------------signup successful, redirecting-----------");
@@ -53,39 +54,5 @@ module.exports = function (app) {
                 loggedIn: true
             });
         }
-    });
-
-
-    // ---------------------------------  No Password Below ---------------------------------
-    
-
-    //Routes if the user doesn't use a password
-    app.post("/api/signupNoPass", function (req, res) {
-        console.log("---------------signup NoPass-----------");
-        db.Groups.create(req.body).then(function () {
-            console.log("---------------NoPass signup successful, redirecting-----------");
-            res.redirect(307, "/api/loginNoPass");
-        }).catch(function (err) {
-            console.log(err);
-            res.status(422).json(err.errors[0].message);
-        });
-    });
-
-    app.post("/api/loginNoPass", function(req, res) {
-        db.Groups.findOne({
-            where: {
-                groupName: req.body.groupName
-            }
-        }).then(function(dbResponse) {
-            if (dbResponse.reqPass) {
-                res.json({ message: "This Group requires a Password" });
-            }
-            else {
-                res.json("/new-group");
-            }
-        }).catch(function(err) {
-            console.log(err);
-            res.json(err);
-        })
     });
 };

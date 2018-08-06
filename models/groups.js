@@ -12,15 +12,9 @@ module.exports = function (sequelize, DataTypes) {
         },
         hashId: {
             type: DataTypes.STRING,
-            allowNull: false,
-            unique: true
+            allowNull: false
         },
-        password: DataTypes.STRING,
-        reqPass: {
-            type: DataTypes.BOOLEAN,
-            allowNull: false,
-            unique: true
-        }
+        password: DataTypes.STRING
     });
 
     Groups.associate = function (models) {
