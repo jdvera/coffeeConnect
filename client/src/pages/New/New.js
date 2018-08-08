@@ -4,18 +4,8 @@ import API from "../../utils/API";
 
 class New extends Component {
 
-    componentDidMount() {
-        API.getUser().then(res => {
-            console.log(res.data.loggedIn);
-            if (!res.data.loggedIn) {
-                console.log("New.js - componentDidMount - you are NOT logged in");
-                window.location.href = "/";
-            }
-            else {
-                console.log("New.js - componentDidMount - you good");
-            }
-        }).catch(err => console.log(err));
-    }
+    state = {
+	};
 
 	handleTest = event => {
 		event.preventDefault();

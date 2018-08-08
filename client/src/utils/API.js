@@ -3,10 +3,10 @@ import axios from "axios";
 export default {
     createGroup: (userData) => {
         console.log("Axios createGroup");
-        return axios.post("/api/signup", userData);
+        return axios.post("/api/create_group", userData);
     },
 
-    getUser: () => {
+    userData: () => {
         console.log("Axios getting stuff");
         return axios.get("/api/user_data");
     },

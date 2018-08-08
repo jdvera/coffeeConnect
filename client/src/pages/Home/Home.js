@@ -4,7 +4,6 @@ import API from "../../utils/API";
 import GroupForm from "../../components/GroupForm";
 
 class Home extends Component {
-	type
 
 	state = {
 		groupName: "",
@@ -14,15 +13,12 @@ class Home extends Component {
 	};
 
 	handleInputChange = event => {
-		let { name, value } = event.target;
 		event.preventDefault();
-
+		let { name, value } = event.target;
 		this.setState({
 			[name]: value,
 			message: ""
-		}, () => {
-			console.log(name + ": " + value);
-		});
+		}, () => console.log(name + ": " + value));
 	};
 
 	handleOverlay = event => {
@@ -68,7 +64,7 @@ class Home extends Component {
 
 	handleTest = event => {
 		event.preventDefault();
-		API.getUser().then(res => console.log(res.data)).catch(err => console.log(err));
+		API.userData().then(res => console.log(res.data)).catch(err => console.log(err));
 	};
 
 	handleLogout = event =>{
@@ -102,10 +98,6 @@ class Home extends Component {
 				
 				<div className="row">
 					<button onClick={this.handleOverlay}>create new group</button>
-				</div>
-				
-				<div className="row">
-					<button name="get" onClick={this.handleTest}>get group info</button>
 				</div>
 				
 				<div className="row">
